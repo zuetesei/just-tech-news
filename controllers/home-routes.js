@@ -1,7 +1,7 @@
 // contains all user-facing routes
 const router = require('express').Router();
 const sequelize = require('../config/connection');
-const { Post, User, Comment } = require('../models');
+const { Post, User, Comment, Vote } = require('../models');
 
 router.get('/', (req, res) => {
     console.log(req.session);
@@ -45,18 +45,7 @@ router.get('/login', (req, res) => {
         res.redirect('/');
         return;
     }
-    res.sender('login');
-});
-
-router.post('/logout', (req, res) => {
-    if (req.session.loggedIn) {
-        req.session.destroy(() => {
-            res.status(204).end();
-        });
-    }
-    else {
-        res.status(404).end();
-    }
+    res.render('login');
 });
 
 module.exports = router; 
